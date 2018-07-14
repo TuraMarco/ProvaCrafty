@@ -11,11 +11,11 @@ var box = Crafty.e("2D, Canvas, Color, Twoway, Gravity")
     .attr({x:200, y:50, w:50, h:50})
     .color("black")
     .twoway(200,100)                // twoway accetta 2 argomenti, velocità orizzontale, e la velocità di salto, di defoult impostata al doppio di quella orizzontale 
-    .gravity("_floor");
+//  .gravity("_floor");             
 
 // distruggo la ENTITY "floorBox" e modifico la box per essere "Fourway" e non più "Twoway"   
 box.removeComponent("Twoway");
-box.removeComponent("Gravity", false)
+box.removeComponent("Gravity", false)   //NON SO PERCHE MA GRAVITY NON SI RIMUOVE!!!!!!!!!!!!
 floorBox.destroy();
 box.addComponent("Fourway");
 box.fourway(200);                   // accetta un solo argomento che è la velocità di scorrimento in tutte le direzioni
@@ -31,4 +31,6 @@ box.speed({x:200, y:50});
 
 // disabilito il controllo con i tasti
 box.disableControl();
+
+
 
