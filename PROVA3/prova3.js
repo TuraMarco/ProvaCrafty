@@ -14,7 +14,7 @@ var box = Crafty.e("2D, Canvas, Color, Twoway, Gravity")
 //  .gravity("_floor");             
 
 // distruggo la ENTITY "floorBox" e modifico la box per essere "Fourway" e non più "Twoway"   
-box.removeComponent("Twoway");
+box.removeComponent("Twoway", false);
 box.removeComponent("Gravity", false)   //NON SO PERCHE MA GRAVITY NON SI RIMUOVE!!!!!!!!!!!!
 floorBox.destroy();
 box.addComponent("Fourway");
