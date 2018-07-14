@@ -23,7 +23,7 @@ playerBox.addComponent("Jumper", "Gravity" , "Collision");  // aggiungo un COMPO
 
 // rimuovo COMPONENT da un element
 playerBox.removeComponent("Jumper, Gravity, Collision", false);  // il secondo argomento discrimina tra una rimozione soft(true) o una hard(false), defoult SOFT
-playerBox.addComponent("Jumper", "Gravity" , "Collision");
+playerBox.addComponent("Jumper", "Gravity" , "Collision", "_eater");
 
 //modifico le PROPERTY di una ENTITY 
 playerBox.z = 2;                    // una alla volta
@@ -37,14 +37,43 @@ var foodBox = Crafty.e("2D, Canvas, Color, _food")
 // modivico le PROPERTY della "foodBox"
 foodBox.attr({z:1, rotation:45});
 
-// associo un EVENTO ad una ENTITY
+// associo un EVENT ad una ENTITY
 playerBox.bind('KeyDown', function (e) {    // associo la funzione all'evento "keyDown"
     if(e.key == Crafty.keys.T)
     {
-        this.alpha = 0.5
+        this.alpha = 0.5;                   // gestisco l'opacità (canale alpha) della ENTITY passata alla funzione
     }
     else if(e.key == Crafty.keys.O)
     {
-        this.alpha = 1
+        this.alpha = 1;
     }
 });
+
+// associo EVENT di collisione ad una ENTITY nei confronti di un altra specifica ENTITY
+playerBox.checkHits("_food")                //controllo solo le collisioni nei confronti di "_food"
+    .bind("HitOn", function (hitData) {     // gestisco l'evento di "HitOn" (inizio collisione)
+        this.color("green");
+        this.w += 3;
+        this.h += 3;
+        console.log(typeof(hitData));       // ritorna la stringa "_food"
+    });
+
+playerBox.checkHits("_food")                // controllo solo le collisioni nei confronti di "_food"
+    .bind("HitOff", function (hitData) {    // gestisco l'evento di "HitOff" (fine collisione)
+        this.color("black");
+        this.w += 3;
+        this.h += 3;
+
+        foodBox.destroy()                   // distruggo la ENTITY "foodBox" con la funzione ".destroy()"
+    });
+
+// cambio una PROPERTY in ogni ENTITY caratterizzata da uno o più COMPONENT specifici
+Crafty("_food").each(function() {           
+    if(this.x > 100) {
+        this.color("purple");
+    }
+});
+
+Crafty("_food").get() // prelevo la collection di tutte le ENTITY con PROPERTY "_food"
+Crafty("_food").get(0) // prelevo la prima ENTITY della collection di tutte le ENTITY con PROPERTY "_food"
+
