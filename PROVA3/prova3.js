@@ -32,5 +32,50 @@ box.speed({x:200, y:50});
 // disabilito il controllo con i tasti
 box.disableControl();
 
+//distruggo le box precedenti
+box.destroy();
+floorBox.destroy();
 
+// creo un ENTITY con PROPERTY Keyboard per creare comportamenti aggiuntivi all'uso dei tasti
+var keyboardBox = Crafty.e("2D, Canvas, Color, Keyboard")
+    .attr({x:100, y:100, w:15, h:15})
+    .color("purple");
+
+//  Keyboard espone 2 eventi che sono:
+//  - KeyDown
+//  - KeyUp
+keyboardBox.bind("KeyDown", function () 
+{
+    //.isDown() permette di capire quale tasto viene premuto
+    if(this.isDown(Crafty.keys.LEFT_ARROW))
+    {
+        this.w -= 5;
+    }
+    else if(this.isDown(Crafty.keys.RIGHT_ARROW))
+    {
+        this.w += 5;
+    }
+    else if(this.isDown(Crafty.keys.UP_ARROW))
+    {
+        this.h -= 5;
+    }
+    else if(this.isDown(Crafty.keys.DOWN_ARROW))
+    {
+        this.h += 5;
+    }
+    else if(this.isDown('R')) //posso anche passare la lettera associata al tasto
+    {
+        this.h = 15;
+        this.w = 15;
+    }
+});
+
+//Creiamo un ENTITY con Text per scrivere testo arbitrario
+var textElement = Crafty.e("2D, Canvas, Text") //il Canvas potrebbe dare problemi con certi Font, nel caso usa DOM
+    .attr({x:10, y:10})
+    .textColor("red")   //setto il colore del testo
+    .textAlign("start") //setto l'allineamento, vanno bene: start, end, left, right
+    .textFont("type", "italic") //setto parametri di font con chiavi/valore
+    .textFont({size: '20px', weight: 'bold'}) //setto parametri di font con un oggetto
+    .text("TESTO A CASO!!!"); //converte automaticamente un numero in stringa
 
