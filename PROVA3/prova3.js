@@ -1,6 +1,7 @@
 // inizializzo crafty
 Crafty.init(600, 400, document.getElementById("crafty-game"));
 
+//TWOWAY
 // creo una ENTITY pavimento con COMPONENT custom "_floor"
 var floorBox = Crafty.e("2D, Canvas, Color, _floor") 
     .attr({x:0, y:390, w:600, h:10})
@@ -13,6 +14,7 @@ var box = Crafty.e("2D, Canvas, Color, Twoway, Gravity")
     .twoway(200,100)                // twoway accetta 2 argomenti, velocità orizzontale, e la velocità di salto, di defoult impostata al doppio di quella orizzontale 
 //  .gravity("_floor");             
 
+//FOURWAY
 // distruggo la ENTITY "floorBox" e modifico la box per essere "Fourway" e non più "Twoway"   
 box.removeComponent("Twoway", false);
 box.removeComponent("Gravity", false)   //NON SO PERCHE MA GRAVITY NON SI RIMUOVE!!!!!!!!!!!!
@@ -36,6 +38,7 @@ box.disableControl();
 box.destroy();
 floorBox.destroy();
 
+//KEYBOARD
 // creo un ENTITY con PROPERTY Keyboard per creare comportamenti aggiuntivi all'uso dei tasti
 var keyboardBox = Crafty.e("2D, Canvas, Color, Keyboard")
     .attr({x:100, y:100, w:15, h:15})
@@ -70,6 +73,7 @@ keyboardBox.bind("KeyDown", function ()
     }
 });
 
+//TEXT
 //Creiamo un ENTITY con Text per scrivere testo arbitrario
 var textElement = Crafty.e("2D, Canvas, Text") //il Canvas potrebbe dare problemi con certi Font, nel caso usa DOM
     .attr({x:10, y:10})
