@@ -1,4 +1,4 @@
-45// inizializzo crafty
+// inizializzo crafty
 Crafty.init(600, 400, document.getElementById("crafty-game"));
 
 // creo una ENTITY pavimento con COMPONENT custom "_floor"
