@@ -10,7 +10,6 @@ window.onload = function()
 	});
 
     iso = Crafty.isometric.size(128); // definisco la dimensione della griglia isometrica (usare potenze di 2)
-	var z = 0;
     for(var i = 20; i >= 0; i--) //numero di elementi per riga (21)
     {
         for(var y = 0; y < 20; y++) //20
@@ -27,7 +26,7 @@ window.onload = function()
                 console.log(e.mouseButton);
                 /*if(e.button === 2)*/ this.destroy();
             })
-            .bind("MouseOver", function(MouseEvent) 
+            .bind("MouseOver", function() 
             {
                 if(this.has("_grass")) {
                     this.sprite(0,1,1,1);
@@ -39,7 +38,7 @@ window.onload = function()
                     this.y -= 3;
                 }
             })
-            .bind("MouseOut", function(MouseEvent) 
+            .bind("MouseOut", function() 
             {
                 if(this.has("_grass")) 
                 {
@@ -60,7 +59,7 @@ window.onload = function()
     //Crafty.stage.elem -----> cr-stage (ossia l'elemto HTML dove è inserita l'applicazione)
 
     //spostarsi con la mappa usandpo il mouse
-	Crafty.addEvent(this, Crafty.stage.elem, "mousedown", function(e)     //associol'evento per muovere la griglia isometrica
+	Crafty.addEvent(this, Crafty.stage.elem, "mousedown", function()     //associol'evento per muovere la griglia isometrica
     {
         Crafty.addEvent(this, Crafty.stage.elem, "mousedown", function(e) {
             if(e.button > 1) return;
