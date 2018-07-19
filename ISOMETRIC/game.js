@@ -56,23 +56,28 @@ window.onload = function()
             iso.place(i,y,0, tile); //inserisco l'ELEMENT appena creato nella griglia isometrica nelle coordinate "i" ed "y", il terzo argomento esprime l'altezza
         }
 	}
-	
-	Crafty.addEvent(this, Crafty.stage.elem, "MouseDown", function(e)     //associol'evento per muovere la griglia isometrica
+    
+    //Crafty.stage.elem -----> cr-stage (ossia l'elemto HTML dove è inserita l'applicazione)
+
+    //spostarsi con la mappa usandpo il mouse
+	Crafty.addEvent(this, Crafty.stage.elem, "mousedown", function(e)     //associol'evento per muovere la griglia isometrica
     {
-        // if(e.button > 1) return;
-		// var base = {x: e.clientX, y: e.clientY};
-
-		// function scroll(e) {
-		// 	var dx = base.x - e.clientX,
-		// 		dy = base.y - e.clientY;
-		// 		base = {x: e.clientX, y: e.clientY};
-		// 	Crafty.viewport.x -= dx;
-		// 	Crafty.viewport.y -= dy;
-		// };
-
-		// Crafty.addEvent(this, Crafty.stage.elem, "mousemove", scroll);
-		// Crafty.addEvent(this, Crafty.stage.elem, "mouseup", function() {
-		// 	Crafty.removeEvent(this, Crafty.stage.elem, "mousemove", scroll);
-		// });
+        Crafty.addEvent(this, Crafty.stage.elem, "mousedown", function(e) {
+            if(e.button > 1) return;
+            var base = {x: e.clientX, y: e.clientY};
+    
+            function scroll(e) {
+                var dx = base.x - e.clientX,
+                    dy = base.y - e.clientY;
+                    base = {x: e.clientX, y: e.clientY};
+                Crafty.viewport.x -= dx;
+                Crafty.viewport.y -= dy;
+            };
+    
+            Crafty.addEvent(this, Crafty.stage.elem, "mousemove", scroll);
+            Crafty.addEvent(this, Crafty.stage.elem, "mouseup", function() {
+                Crafty.removeEvent(this, Crafty.stage.elem, "mousemove", scroll);
+            });
+        });
     });
 }
